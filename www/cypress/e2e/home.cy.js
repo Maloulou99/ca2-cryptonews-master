@@ -2,6 +2,7 @@ describe("Routes", () => {
     cy.recreateDatabase = function () {
         cy.task('recreateDatabase').then(() => {
             cy.log("Database recreated successfully");
+        });
     };
     before(() => {
         cy.recreateDatabase();
