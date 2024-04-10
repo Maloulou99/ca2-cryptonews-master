@@ -7,9 +7,28 @@
 </head>
 <body>
 <div>
-    <h1>Welcome!</h1>
-    <p>Hello you, Sign up if you don't have an account og sign in if you have!</p>
+    <?php if ($loggedIn) : ?>
+    <h1>News Articles</h1>
+    <ul>
+        <li>
+            <h2>Bitcoin Price Surges to $50,000</h2>
+            <p>Publication Date: March 15, 2024</p>
+            <p>Author: John Doe</p>
+            <p>Summary: Bitcoin reached a new all-time high today, surpassing the $50,000 mark for the first time.</p>
+        </li>
+        <li>
+            <h2>Ethereum 2.0 Upgrade Scheduled for Next Month</h2>
+            <p>Publication Date: March 17, 2024</p>
+            <p>Author: Jane Smith</p>
+            <p>Summary: The long-awaited Ethereum 2.0 upgrade is set to launch next month, promising scalability and efficiency improvements.</p>
+        </li>
 
+    </ul>
+    <?php else : ?>
+    <script>
+        window.location.replace("/sign-in");
+    </script>
+    <?php endif; ?>
 </div>
 </body>
 </html>

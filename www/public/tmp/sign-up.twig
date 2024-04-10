@@ -11,30 +11,25 @@
     <div>
         <label for="email">Email:</label><br>
         <input data-cy="sign-up__email" type="text" id="email" name="email">
-        <?php if (isset($errors['email'])): ?>
-        <span><?php echo $errors['email']; ?></span>
-        <?php endif; ?>
+        <span data-cy="sign-up__wrongEmail"></span>
     </div>
     <div>
         <label for="password">Password:</label><br>
         <input data-cy="sign-up__password" type="password" id="password" name="password">
+        <span data-cy="sign-up__wrongPassword"></span>
     </div>
     <div>
         <label for="repeat_password">Repeat Password:</label><br>
         <input data-cy="sign-up__repeatPassword" type="password" id="repeat_password" name="repeat_password">
-        <?php if (isset($errors['password'])): ?>
-        <span><?php echo $errors['password']; ?></span>
-        <?php endif; ?>
+        <span data-cy="sign-up__wrongPassword"></span>
     </div>
     <div>
         <label for="numBitcoins">Number of Bitcoins (optional):</label><br>
         <input data-cy="sign-up__coins" type="text" id="numBitcoins" name="numBitcoins">
-        <?php if (isset($errors['numBitcoins'])): ?>
-        <span><?php echo $errors['numBitcoins']; ?></span>
-        <?php endif; ?>
+        <span data-cy="sign-up__wrongCoins"></span>
     </div>
     <div>
-        <button type="submit">Sign Up</button>
+        <button data-cy="sign-up__btn" type="submit">Sign Up</button>
     </div>
 </form>
 </body>

@@ -1,8 +1,8 @@
 <?php
 
-use Controller\CreateUserController;
-use Controller\FlashController;
-use Controller\HomeController;
+use controller\CreateUserController;
+use controller\FlashController;
+use controller\HomeController;
 use DI\ContainerBuilder;
 use Model\Repository\MySqlUserRepository;
 use model\UserRepository;
@@ -61,7 +61,10 @@ $container->set(HomeController::class, function (ContainerInterface $c) {
 });
 
 $container->set(CreateUserController::class, function (ContainerInterface $c) {
-    return new CreateUserController($c->get(UserRepository::class), $c->get(Messages::class), $c->get(ResponseFactoryInterface::class));
+    return new CreateUserController(
+        $c->get(UserRepository::class),
+        $c->get(ResponseFactoryInterface::class)
+    );
 });
 
 $container->set(FlashController::class, function (ContainerInterface $c) {
@@ -72,5 +75,10 @@ $container->set(FlashController::class, function (ContainerInterface $c) {
 $container->set(Messages::class, function (ContainerInterface $c) {
     return new Messages();
 });
+
+function getCreateUserController(ContainerInterface $container): CreateUserController
+{
+    return $container->get(CreateUserController::class);
+}
 
 return $container;

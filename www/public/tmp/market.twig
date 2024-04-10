@@ -7,21 +7,21 @@
 </head>
 <body>
 <div>
-    <h1>Welcome!</h1>
-    <p>Hello you, Sign up if you don't have an account og sign in if you have!</p>
-
+    <?php if ($loggedIn) : ?>
+    <h1>Market Updates</h1>
+    <p>Your Crypto Balance: <?php echo $userCryptoBalance; ?></p>
+    <ul>
+        <li>
+            <h2>Bitcoin</h2>
+            <p>Price: <?php echo $bitcoinPrice; ?></p>
+        </li>
+    </ul>
+    <?php else : ?>
+    <h1>Welcome to CryptoNews!</h1>
+    <p>Login if you want to see your updated data.</p>
+    <button onclick="location.href='/sign-in';">Sign In</button>
+    <button onclick="location.href='/sign-up';">Sign Up</button>
+    <?php endif; ?>
 </div>
 </body>
 </html>
-The market updates page should display the current market
-price of at least 1 cryptocurrency. You can use placeholder
-text or real data from external APIs to populate these section
-(cryptocurrency name and price).
-
-If the user is not logged in, this page should display a
-generic welcome message, specifically "Welcome to CryptoNews!
-Login if you want to see your updated data.". Otherwise,
-the page title should be "Market Updates" and the page content should be
-the user's crypto balance (introduced in the user registration form) and,
-as said before, the current market price of at least 1 cryptocurrency.
-Feel free to customize the page as you want.

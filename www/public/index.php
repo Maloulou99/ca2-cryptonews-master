@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use controller\CreateUserController;
 use DI\ContainerBuilder;
 use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -40,24 +41,9 @@ $app->get('/sign-up', function ($request, $response) {
     return $this->get('view')->render($response, 'sign-up.twig');
 });
 
-$app->post('/sign-up', function (Request $request, Response $response) {
-    $data = $request->getParsedBody();
-
-    $errors = [];
-    if (empty($data['email']) || !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-        $errors['email'] = 'Invalid email address';
-    }
-    if (empty($data['password']) || empty($data['repeat_password']) || $data['password'] !== $data['repeat_password']) {
-        $errors['password'] = 'Passwords do not match';
-    }
-    if (isset($data['numBitcoins']) && ($data['numBitcoins'] < 0 || $data['numBitcoins'] > 40000)) {
-        $errors['numBitcoins'] = 'Number of bitcoins must be between 0 and 40000';
-    }
-
-    if (!empty($errors)) {
-        return $this->get('view')->render($response, 'home.twig', ['errors' => $errors]);
-    }
-    return $response->withHeader('Location', '/')->withStatus(302);
+$app->post('/sign-up', function (Request $request, Response $response) use ($container) {
+    $createUserController = $container->get(CreateUserController::class);
+    return $createUserController->apply($request, $response);
 });
 
 $app->get('/sign-in', function (Request $request, Response $response) {
@@ -75,7 +61,7 @@ $app->post('/sign-in', function (Request $request, Response $response) {
         $errors['password'] = 'Passwords do not match';
     }
     if (!empty($errors)) {
-        return $this->get('view')->render($response, 'sign-up.twig', ['errors' => $errors]);
+        return $this->get('view')->render($response, 'sign-in.twig', ['errors' => $errors]);
     }
     return $response->withHeader('Location', '/')->withStatus(302);
 });
