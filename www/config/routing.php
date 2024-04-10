@@ -2,22 +2,42 @@
 declare(strict_types=1);
 
 use Controller\CreateUserController;
-use Slim\Factory\AppFactory;
-use Model\ConcreteUserRepository; // Antaget at ConcreteUserRepository implementerer UserRepository
+use Controller\HomeController;
+use Controller\VisitsController;
+use middleware\AfterMiddleware;
+use middleware\SessionMiddleware;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 
-require __DIR__ . '/../vendor/autoload.php';
+$app->get('/', HomeController::class . ':apply')->setName('home')->add(AfterMiddleware::class);
 
-$app = AppFactory::create();
-
-$responseFactory = $app->getResponseFactory();
-
-$app->post('/create-user', function (Request $request, Response $response) use ($responseFactory) {
-    $twig = new Twig();
-    $userRepository = new ConcreteUserRepository(); // Brug af den konkrete klasse, der implementerer UserRepository
-    $createUserController = new CreateUserController($twig, $userRepository);
-    return $createUserController->apply($request, $response);
+$app->post('/sign-up', function (ServerRequestInterface $request, ResponseInterface $response) {
+    return $response->withHeader('Location', '/home');
 });
 
-$app->run();
+$app->post('/sign-in', function (ServerRequestInterface $request, ResponseInterface $response) {
+    return $response->withHeader('Location', '/home');
+});
+
+$app->get('/home', function (Request $request, Response $response) {
+    return $this->get("view")->render($response, "home.twig", ["username" => "Malou"]);
+})->setName("home");
+
+$app->get('/sign-up', CreateUserController::class . ':apply')->setName('sign-up');
+$app->get('/sign-in', CreateUserController::class . ':apply')->setName('sign-in');
+
+$app->add(AfterMiddleware::class);
+
+$app->add(SessionMiddleware::class);
+
+$app->get('/', function (ServerRequestInterface $request, ResponseInterface $response) {
+    return $response->withHeader('Location', '/home');
+});
+
+$app->add(AfterMiddleware::class);
+
+$app->get('/visits', VisitsController::class . ':showVisits')->setName('visits');
+
+

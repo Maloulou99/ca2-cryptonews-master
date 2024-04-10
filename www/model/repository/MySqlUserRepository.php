@@ -24,9 +24,9 @@ QUERY;
 
         $statement = $this->database->prepare($query);
 
-        $email = $user->getEmail();
-        $password = $user->getPassword();
-        $coins = $user->getCoins();
+        $email = $user->email();
+        $password = $user->password();
+        $coins = $user->coins();
 
         $statement->bindParam('email', $email, PDO::PARAM_STR);
         $statement->bindParam('password', $password, PDO::PARAM_STR);

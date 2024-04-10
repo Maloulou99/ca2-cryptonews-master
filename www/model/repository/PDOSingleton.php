@@ -38,7 +38,7 @@ final class PDOSingleton
         string $host,
         string $port,
         string $database
-    ): PDOSingleton {
+    ): self {
         if (self::$instance === null) {
             self::$instance = new self(
                 $username,
@@ -52,7 +52,7 @@ final class PDOSingleton
         return self::$instance;
     }
 
-    public function connection(): PDO
+    public function getConnection(): PDO
     {
         return $this->connection;
     }

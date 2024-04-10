@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+</head>
+<body>
+<h1>Sign Up</h1>
+<form data-cy="sign-up" action="/sign-up" method="post">
+    <div>
+        <label for="email">Email:</label><br>
+        <input data-cy="sign-up__email" type="text" id="email" name="email">
+        <?php if (isset($errors['email'])): ?>
+        <span><?php echo $errors['email']; ?></span>
+        <?php endif; ?>
+    </div>
+    <div>
+        <label for="password">Password:</label><br>
+        <input data-cy="sign-up__password" type="password" id="password" name="password">
+    </div>
+    <div>
+        <label for="repeat_password">Repeat Password:</label><br>
+        <input data-cy="sign-up__repeatPassword" type="password" id="repeat_password" name="repeat_password">
+        <?php if (isset($errors['password'])): ?>
+        <span><?php echo $errors['password']; ?></span>
+        <?php endif; ?>
+    </div>
+    <div>
+        <label for="numBitcoins">Number of Bitcoins (optional):</label><br>
+        <input data-cy="sign-up__coins" type="text" id="numBitcoins" name="numBitcoins">
+        <?php if (isset($errors['numBitcoins'])): ?>
+        <span><?php echo $errors['numBitcoins']; ?></span>
+        <?php endif; ?>
+    </div>
+    <div>
+        <button type="submit">Sign Up</button>
+    </div>
+</form>
+</body>
+</html>

@@ -19,7 +19,11 @@
     "slim/psr7": "1.5",
     "php-di/slim-bridge": "^3.1",
     "slim/twig-view": "3.3",
-    "ext-json": "*"
+    "jenssegers/blade": "^1.2",
+    "php": "^7.4",
+    "exe-curl": "*",
+    "ext-json": "*",
+    "php-di/slim-bridge": "3.4.0"
   }
 
 }

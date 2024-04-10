@@ -9,17 +9,18 @@ class User
     private string $password;
     private int $coins;
 
+
     public function __construct(
         string $email,
         string $password,
-        int $coins = 0
+        int $coins
     ) {
         $this->email = $email;
         $this->password = $password;
         $this->coins = $coins;
     }
 
-    public function getId(): int
+    public function id(): int
     {
         return $this->id;
     }
@@ -30,20 +31,25 @@ class User
         return $this;
     }
 
-    public function getEmail(): string
+    public function email(): string
     {
         return $this->email;
     }
 
-    public function getPassword(): string
+    public function password(): string
     {
         return $this->password;
     }
 
-    public function getCoins(): int
+    public function coins(): int
     {
         return $this->coins;
     }
 
+    public function setCoins(int $coins): self
+    {
+        $this->coins = $coins;
+        return $this;
+    }
 
 }

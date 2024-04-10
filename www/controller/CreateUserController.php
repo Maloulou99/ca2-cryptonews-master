@@ -9,16 +9,13 @@ use Model\User;
 use Model\UserRepository;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Slim\Views\Twig;
 
 final class CreateUserController
 {
-    private Twig $twig;
     private UserRepository $userRepository;
 
-    public function __construct(Twig $twig, UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository)
     {
-        $this->twig = $twig;
         $this->userRepository = $userRepository;
     }
 
@@ -27,20 +24,20 @@ final class CreateUserController
         try {
             $data = $request->getParsedBody();
 
-            // TODO - Validate data before instantiating the user
             $user = new User(
                 $data['email'] ?? '',
                 $data['password'] ?? '',
-                $coins['coins'] ?? '',
+                $data['coins'] ?? '',
             );
 
             $this->userRepository->save($user);
+
+            // Redirect to home page or render a success message
+            return $response->withHeader('Location', '/home')->withStatus(302);
         } catch (Exception $exception) {
             $response->getBody()
                 ->write('Unexpected error: ' . $exception->getMessage());
             return $response->withStatus(500);
         }
-
-        return $response->withStatus(201);
     }
 }
