@@ -7,30 +7,87 @@
 </head>
 <body>
 <h1>Sign Up</h1>
-<form data-cy="sign-up" action="/sign-up" method="post">
+<form data-cy="sign-up" id="sign-up-form" action="/sign-up" method="post">
     <div>
         <label for="email">Email:</label><br>
         <input data-cy="sign-up__email" type="text" id="email" name="email">
-        <span data-cy="sign-up__wrongEmail"></span>
+        <span data-cy="sign-up__wrongEmail" class="error"></span>
     </div>
     <div>
         <label for="password">Password:</label><br>
         <input data-cy="sign-up__password" type="password" id="password" name="password">
-        <span data-cy="sign-up__wrongPassword"></span>
+        <span data-cy="sign-up__wrongPassword" class="error"></span>
     </div>
     <div>
         <label for="repeat_password">Repeat Password:</label><br>
         <input data-cy="sign-up__repeatPassword" type="password" id="repeat_password" name="repeat_password">
-        <span data-cy="sign-up__wrongPassword"></span>
+        <span data-cy="sign-up__wrongPassword" class="error"></span>
     </div>
     <div>
         <label for="numBitcoins">Number of Bitcoins (optional):</label><br>
         <input data-cy="sign-up__coins" type="text" id="numBitcoins" name="numBitcoins">
-        <span data-cy="sign-up__wrongCoins"></span>
+        <span data-cy="sign-up__wrongCoins" class="error"></span>
     </div>
     <div>
         <button data-cy="sign-up__btn" type="submit">Sign Up</button>
     </div>
 </form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('sign-up-form');
+        const emailField = document.getElementById('email');
+        const passwordField = document.getElementById('password');
+        const repeatPasswordField = document.getElementById('repeat_password');
+        const coinsField = document.getElementById('numBitcoins');
+
+        form.addEventListener('submit', function (event) {
+            let errors = false;
+
+            // Reset errors
+            const errorFields = document.querySelectorAll('.error');
+            errorFields.forEach(function (errorField) {
+                errorField.textContent = '';
+            });
+
+            // Email validation
+            if (!emailField.value.trim()) {
+                document.querySelector('[data-cy="sign-up__wrongEmail"]').textContent = 'Email is required.';
+                errors = true;
+            } else if (!/\S+@\S+\.\S+/.test(emailField.value)) {
+                document.querySelector('[data-cy="sign-up__wrongEmail"]').textContent = 'The email address is not valid.';
+                errors = true;
+            } else if (!emailField.value.includes('@salle.url.edu')) {
+                document.querySelector('[data-cy="sign-up__wrongEmail"]').textContent = 'Only emails from the domain @salle.url.edu are accepted.';
+                errors = true;
+            }
+
+            // Password validation
+            if (!passwordField.value.trim()) {
+                document.querySelector('[data-cy="sign-up__wrongPassword"]').textContent = 'Password is required.';
+                errors = true;
+            } else if (passwordField.value.length < 7) {
+                document.querySelector('[data-cy="sign-up__wrongPassword"]').textContent = 'The password must contain at least 7 characters.';
+                errors = true;
+            }
+
+            // Repeat password validation
+            if (!repeatPasswordField.value.trim() || repeatPasswordField.value !== passwordField.value) {
+                document.querySelector('[data-cy="sign-up__wrongPassword"]').textContent = 'Passwords do not match.';
+                errors = true;
+            }
+
+            // Number of Bitcoins validation
+            if (coinsField.value.trim() && isNaN(coinsField.value)) {
+                document.querySelector('[data-cy="sign-up__wrongCoins"]').textContent = 'The number of Bitcoins is not a valid number.';
+                errors = true;
+            }
+
+            if (errors) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>
 </body>
 </html>
