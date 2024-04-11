@@ -10,19 +10,18 @@
     <?php if ($loggedIn) : ?>
     <h1>News Articles</h1>
     <ul>
-        <li>
-            <h2>Bitcoin Price Surges to $50,000</h2>
-            <p>Publication Date: March 15, 2024</p>
-            <p>Author: John Doe</p>
-            <p>Summary: Bitcoin reached a new all-time high today, surpassing the $50,000 mark for the first time.</p>
+        <li data-cy="news-articles__item">
+            <h2 data-cy="news-articles__item-title">Bitcoin Price Surges to $50,000</h2>
+            <p data-cy="news-articles__item-date">Publication Date: March 15, 2024</p>
+            <p data-cy="news-articles__item-author">Author: John Doe</p>
+            <p data-cy="news-articles__item-summary">Summary: Bitcoin reached a new all-time high today, surpassing the $50,000 mark for the first time.</p>
         </li>
-        <li>
-            <h2>Ethereum 2.0 Upgrade Scheduled for Next Month</h2>
-            <p>Publication Date: March 17, 2024</p>
-            <p>Author: Jane Smith</p>
-            <p>Summary: The long-awaited Ethereum 2.0 upgrade is set to launch next month, promising scalability and efficiency improvements.</p>
+        <li data-cy="news-articles__item">
+            <h2 data-cy="news-articles__item-title">Ethereum 2.0 Upgrade Scheduled for Next Month</h2>
+            <p data-cy="news-articles__item-date">Publication Date: March 17, 2024</p>
+            <p data-cy="news-articles__item-author">Author: Jane Smith</p>
+            <p data-cy="news-articles__item-summary">The long-awaited Ethereum 2.0 upgrade is set to launch next month, promising scalability and efficiency improvements.</p>
         </li>
-
     </ul>
     <?php else : ?>
     <script>
